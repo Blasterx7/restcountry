@@ -13,16 +13,19 @@ class CountryController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://restcountries.com/v3.1/all",
-            CURLOPT_RETURNTRANSFER => true,
+            // CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
+            CURLOPT_MAXREDIRS => 100,
+            CURLOPT_POSTREDIR => 3,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_TIMEOUT => 60,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
         ]);
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
+
 
         return Inertia::render('Countries/Index', [
             'countries' => json_decode($response),
