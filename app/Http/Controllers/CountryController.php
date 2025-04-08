@@ -39,7 +39,7 @@ class CountryController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://restcountries.com/v3.1/name/$name",
-            CURLOPT_RETURNTRANSFER => true,
+            // CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -56,7 +56,7 @@ class CountryController extends Controller
         // Check if the response is empty or not
 
         return Inertia::render('Countries/Show', [
-            'country' => json_decode($response[0]),
+            'country' => json_decode($response),
             'err' => $err,
         ]);
     }
